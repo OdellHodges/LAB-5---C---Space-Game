@@ -8,7 +8,7 @@ namespace LAB_5___C___Space_Game
     {
         List<Location> locations = new List<Location>();
 
-        Location currentLocation;
+        Player hero;
 
         public App()
         {
@@ -19,10 +19,10 @@ namespace LAB_5___C___Space_Game
             locations.Add(new Location("Jupiter", 4, 4));
             locations.Add(new Location("Alpha Proxima 1", 4.7, 0));
 
-            currentLocation = locations[0];
+            hero = new Player(locations[0]);
         }
 
-        public void Run()
+    public void Run()
         {
             Program.Intro();
 
@@ -40,7 +40,7 @@ namespace LAB_5___C___Space_Game
                 Console.Clear();
 
                 //Print the current location
-                Console.WriteLine($"Location: {currentLocation.name}\n");
+                Console.WriteLine($"Location: {hero.location.name}\n");
 
                 //Provide options to the user of goods
                 PrintOptionList();
@@ -55,6 +55,7 @@ namespace LAB_5___C___Space_Game
 
         private void PrintOptionList()
         {
+            Console.WriteLine();
             Console.WriteLine("1. Travel to other locations");
             Console.WriteLine("q. Quit");
         }
@@ -73,34 +74,65 @@ namespace LAB_5___C___Space_Game
             return QuitReason.UserQuit;
         }
 
+        //travel menu and basic controls for travel menu
         private void TravelMenu()
         {
-            var valid = false;
+            var done = false;
+            int selector = 0;
+            int count = locations.Count;
 
             do
             {
                 Console.Clear();
                 Console.WriteLine("Travel to:");
 
-                PrintLocationsAndDistances();
+                PrintLocationsAndDistances(selector);
 
                 var key = UI.ElicitInput();
 
-            } while (!valid);
+
+                switch (key)
+                {
+                    case ConsoleKey.DownArrow:
+                        selector++;
+                        selector %= count;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        selector--;
+                        selector = (selector + count) % count;
+                        break;
+                    case ConsoleKey.Q:
+                        done = true;
+                        break;
+                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.Enter:
+                        done = true;
+                        hero.TravelTo(locations[selector]);
+                        break;
+                }
+            } while (!done);
         }
 
-        private void PrintLocationsAndDistances()
+        private void PrintLocationsAndDistances(int selector)
         {
-            for (int i = 0, i < locations.Count, ++i)
+            for (int i = 0; i < locations.Count; ++i)
             {
                 Location destination = locations[i];
 
-                var distance = currentLocation.DistanceTo(destination);
+                var distance = hero.location.DistanceTo(destination);
 
-                Console.WriteLine($"{i + 1}. {destination.name}: {destination}ly");
+                Console.WriteLine($"{i + 1}, ");
+
+                if (i == selector)
+                {
+                    UI.Highlight();
+                }
+
+                Console.WriteLine($"{destination.name}: {destination}ly");
+
+                UI.ResetColors();
             }
         }
-
     }
 }
 
