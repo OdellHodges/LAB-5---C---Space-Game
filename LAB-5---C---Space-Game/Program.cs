@@ -40,7 +40,7 @@ namespace LAB_5___C___Space_Game
 
         private static void MainMenu()
         {
-            CreatingMenuOptions(); //This reference type was created for the 3 options for initating the game. 
+            CreatingMenuOptions(); //This reference type was created for the 2 options for initating the game. 
 
             var userMainMenu = Console.ReadLine();
 
@@ -54,8 +54,10 @@ namespace LAB_5___C___Space_Game
             {
                 //the while loop is used to keep running if the user wants to be a jackass and not put in the approriate letter to start the game.
                 //its primary purpose is while the user is being a butt, then we will keep returning back to the main screen without quitting the program.
+                
+                userMainMenu = Console.ReadLine().ToUpper();
 
-                if (userMainMenu == "S" || userMainMenu == "C" || userMainMenu == "L")
+                if (userMainMenu == "S" || userMainMenu == "C")
                 //An if statement is how to ask the computer question.
                 //the == is how to determine = (equals)
                 // the symbol || signifies (or)
@@ -71,10 +73,6 @@ namespace LAB_5___C___Space_Game
                     {
                         CreateCharacter();
                     }
-                    else if (userMainMenu == "L") // If they put in one of the three options then we need to ensure the program executes appropriately.
-                    {
-                        LoadGame();
-                    }
 
                     validInput = true;
                     //If the user stops messing things up in the code then validInput will be true while executing the loop.
@@ -86,12 +84,32 @@ namespace LAB_5___C___Space_Game
                     //This statement may be redundant but it must be tested first. 
 
                     Console.WriteLine("Stop trying to break my program and put in the appropriate parameters I told you to put in!");
-                    Console.WriteLine("\n(S)tart the game");
-                    Console.WriteLine("(L)oad a game");
-                    Console.WriteLine("(C)reater a character");
-                    userMainMenu = Console.ReadLine().ToUpper();
+                    CreatingMenuOptions(); //Since a method was created for all the options for the game we can use this method to address all 3 console writeline options in the beginnning of the game
+                    
 
                 }
+
+                //You can initiate this same process using a switch statement. 
+                //The switch statement will enable the user to do the same things as an if else statement but it looks nicer.
+                // An example of the code is as follows:
+                //switch (Console.ReadLine().ToUpper()) //Within the switch statement, the text "Console.ReadLine().ToUpper()" was inputted.
+                //                                      //The puprose of this inputted value is if the user does not input the Captalized letter the program will still read the line
+                //{
+                //    case "S": // case is the instance of where you want your switch to occur. Therefore, if the user inputs S then the game will start
+                //        StartGame();
+                //        validInput = true; //Ensure you input the boolean into the code or else your switch statement will not end
+                //        break; //The break statement enables the user to stop at this particular instance rather than continue through the switch statement throughout all the parameters.
+                //    case "C":
+                //        CreateCharacter();
+                //        validInput = true;
+                //        break;
+                //    default: //The default parameter acts as the else statement for switches. 
+                //            // In the information below, the is copied directly from the else statement above. 
+                //        validInput = false;
+                //        Console.WriteLine("Stop trying to break my program and put in the appropriate parameters I told you to put in!");
+                //        CreatingMenuOptions();
+                //        break;
+                //}
             }
 
             Console.WriteLine($"You have Choosen - {userMainMenu}");
@@ -106,24 +124,26 @@ namespace LAB_5___C___Space_Game
             Console.WriteLine("\n\n(S)tart the game");
             // The \n feature creates a new line in C#. I had no clue so by adding two of them I created two new lines.
 
-            Console.WriteLine("(L)oad a game");
             Console.WriteLine("(C)reater a character");
         }
 
         private static void StartGame()
         {
+            var BasePath = $"{AppDomain.CurrentDomain.BaseDirectory} Introduction"; //Creating a JSON file is where I will attempt to store all text information to my story
+                                                                                    //The AppDomain function is used to pull the source information from a designated location
+
+            var initialApp = new App(); //The App Class and the Program Class have now been linked with this instance.
+                                        // This process is called instanciation
             Console.WriteLine("Let the game begin...");
         }
 
         private static void CreateCharacter()
         {
-            throw new NotImplementedException();
-        }
 
-        private static void LoadGame()
-        {
-            throw new NotImplementedException();
         }
+    }
+}
+
         enum Planets
         {
             Earth, Mars, Venus, Mecury, Jupiter, AlphaProxima1
