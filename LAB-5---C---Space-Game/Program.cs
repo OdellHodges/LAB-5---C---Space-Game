@@ -27,13 +27,13 @@ namespace LAB_5___C___Space_Game
             Console.ForegroundColor = ConsoleColor.Gray;
             //I am not sure what the forground color is but it changes some stuff and it looks cool. 
 
-            Console.WriteLine("##############################################");
+            Console.WriteLine("|=============================================================|");
             //This is where you will add the title of your game using the Console Writeline function. Don't forget the ("")
-            Console.WriteLine("##############################################");
-            Console.WriteLine("##############################################");
-            Console.WriteLine("##############################################");
-            Console.WriteLine("##############################################");
-            Console.WriteLine("##############################################");
+            Console.WriteLine("|                                                             |");
+            Console.WriteLine("|    Space Invaders                                           |");
+            Console.WriteLine("|copyright for Space Invaders is held by the Taito Corporation|");
+            Console.WriteLine("|                                                             |");
+            Console.WriteLine("|============================================================ |");
 
 
         }
@@ -41,10 +41,9 @@ namespace LAB_5___C___Space_Game
         private static void MainMenu()
         {
             CreatingMenuOptions(); //This reference type was created for the 2 options for initating the game. 
+            string userMainMenu = "";
+            //var userMainMenu = Console.ReadLine().ToUpper();
 
-            var userMainMenu = Console.ReadLine();
-
-            userMainMenu.ToUpper();
             //the ToUpper or ToLower feature will allow Visual Studio to take in a vowel regardless if its lower case or upper case
 
             var validInput = false;
@@ -57,7 +56,7 @@ namespace LAB_5___C___Space_Game
 
                 userMainMenu = Console.ReadLine().ToUpper();
 
-                if (userMainMenu == "S" || userMainMenu == "C")
+                if (userMainMenu == "S")
                 //An if statement is how to ask the computer question.
                 //the == is how to determine = (equals)
                 // the symbol || signifies (or)
@@ -69,11 +68,6 @@ namespace LAB_5___C___Space_Game
                     {
                         StartGame();
                     }
-                    else if (userMainMenu == "C") // This if else statement will take in information the user puts in after trying to break my code
-                    {
-                        CreateCharacter();
-                    }
-
                     validInput = true;
                     //If the user stops messing things up in the code then validInput will be true while executing the loop.
                 }
@@ -99,10 +93,6 @@ namespace LAB_5___C___Space_Game
                 //        StartGame();
                 //        validInput = true; //Ensure you input the boolean into the code or else your switch statement will not end
                 //        break; //The break statement enables the user to stop at this particular instance rather than continue through the switch statement throughout all the parameters.
-                //    case "C":
-                //        CreateCharacter();
-                //        validInput = true;
-                //        break;
                 //    default: //The default parameter acts as the else statement for switches. 
                 //            // In the information below, the is copied directly from the else statement above. 
                 //        validInput = false;
@@ -124,8 +114,6 @@ namespace LAB_5___C___Space_Game
         {
             Console.WriteLine("\n\n(S)tart the game");
             // The \n feature creates a new line in C#. I had no clue so by adding two of them I created two new lines.
-
-            Console.WriteLine("(C)reater a character");
         }
 
         private static void StartGame()
@@ -136,12 +124,8 @@ namespace LAB_5___C___Space_Game
             var initialApp = new App(); //The App Class and the Program Class have now been linked with this instance.
                                         // This process is called instanciation
             Console.WriteLine("Let the game begin...");
+            Console.ReadLine();
             initialApp.Run();
-        }
-
-        private static void CreateCharacter()
-        {
-            var Player = new App();
         }
 
         public static void ClosingMessage(QuitReason quitReason)
