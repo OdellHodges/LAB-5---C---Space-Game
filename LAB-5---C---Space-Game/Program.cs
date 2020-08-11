@@ -19,9 +19,9 @@ namespace LAB_5___C___Space_Game
         }
 
 
-        private static void Title()
+        public static void Title()
         {
-            Console.BackgroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Blue;
             //You can change the background color in C# by doing the above. It uses an Enum to save a variety of colors. 
 
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -54,7 +54,7 @@ namespace LAB_5___C___Space_Game
             {
                 //the while loop is used to keep running if the user wants to be a jackass and not put in the approriate letter to start the game.
                 //its primary purpose is while the user is being a butt, then we will keep returning back to the main screen without quitting the program.
-                
+
                 userMainMenu = Console.ReadLine().ToUpper();
 
                 if (userMainMenu == "S" || userMainMenu == "C")
@@ -85,7 +85,7 @@ namespace LAB_5___C___Space_Game
 
                     Console.WriteLine("Stop trying to break my program and put in the appropriate parameters I told you to put in!");
                     CreatingMenuOptions(); //Since a method was created for all the options for the game we can use this method to address all 3 console writeline options in the beginnning of the game
-                    
+
 
                 }
 
@@ -113,6 +113,7 @@ namespace LAB_5___C___Space_Game
             }
 
             Console.WriteLine($"You have Choosen - {userMainMenu}");
+            
             //String inteprelation is initated by adding ($) its just big words that lets you add variables to  Console.Writeline
             //Just ensure you use {} when trying to use this BS feature.
             //Using the (+) feature creates a concatination (Combines) between different Console.Writeline
@@ -135,19 +136,32 @@ namespace LAB_5___C___Space_Game
             var initialApp = new App(); //The App Class and the Program Class have now been linked with this instance.
                                         // This process is called instanciation
             Console.WriteLine("Let the game begin...");
+            initialApp.Run();
         }
 
         private static void CreateCharacter()
         {
-
+            var Player = new App();
         }
-    }
-}
 
-        enum Planets
+        public static void ClosingMessage(QuitReason quitReason)
         {
-            Earth, Mars, Venus, Mecury, Jupiter, AlphaProxima1
+            switch (quitReason)
+            {
+                case QuitReason.UserQuit:
+                    Console.WriteLine("Sorry to see you go...\n\n");
+                    break;
+                case QuitReason.Age:
+                    Console.WriteLine("You're 60 years old...\n\n");
+                    break;
+                case QuitReason.OutofMoney:
+                    Console.WriteLine("Your last penny spent...\n\n");
+                    break;
+                case QuitReason.DontQuit:
+                    throw new NotImplementedException("Shouldn't be quitting with DontQuit reason");
+            }
         }
+
 
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LAB_5___C___Space_Game
 {
-    class Location
+    public class Location
     {
         public string name;
 
@@ -41,5 +41,9 @@ namespace LAB_5___C___Space_Game
 
             return Math.Sqrt(left + right);
         }
+    }
+    public class Items
+    {
+        public string name;
     }
 }
